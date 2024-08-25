@@ -52,7 +52,6 @@ JSP도 서블릿으로 변환되어서 사용
 
 생성에 제한이 없다. 고객 요청이 많으면 CPU, 메모리 임계점을 넘어서 서버가 죽을 수 있다.
 
-
 ### 쓰레드 풀
 
 애플리케이션이 생성되면 쓰레드를 여러 개 미리 생성 해놓음.
@@ -103,7 +102,6 @@ React, Vue.js
 
 JSP, 타임리프
 
-
 # 자바 백앤드 웹 기술 역사
 
 스트럿츠, 웹워크, 과거 spring mvc등이 있었으나 애노테이션 기반의 스프링 MVC가 통일
@@ -116,7 +114,7 @@ JSP, 타임리프
 
 ## 최신 기술
 
-Web servelt -  Spring MVC
+Web servelt - Spring MVC
 
 Web Reactive - Spring WebFlux
 
@@ -147,3 +145,29 @@ JSP : 속드 느림, 기능 부족
 프리마터, 벨로시티 : 속도 문제, 댜양한 기능
 
 타임리프 : 내추럴 템플릿, HTML 모양을 유지하면서 뷰 템플릿 적용 가능, 스프링 mvc와 강력한 기능 통합
+
+# 서블릿
+
+* HttpServletRequest, HttpServletResponse : Http 요청, 응답 메시지를 자동으로 객체에 담아서 조회 할수 있게 만듬
+
+* 기능
+    * 임시 저장소 기능
+        * 저장 : request.setAttribute(name, value)
+        * 조회 : request.getAttribute(name)
+    * 세션 관리 기능
+        * request.getSession(create: true)
+
+`-Djava.net.preferIPv4Stack=true`
+
+## 요청 데이터
+
+클라이언트가 서버에 요청하는 주요 방식 3가지
+
+1) GET - 쿼리 파라미터
+
+2) POST - HTML FORM
+    * content-type : appliction/x-www-form-urlencoded
+    * 메시지에 쿼리 파라미터 형식으로 전달. GET 쿼리파라미터와 형태가 같다.
+
+3) HTTP message body에 데이터를 직접 담아서 요청
+    * Json, XML 
