@@ -8,7 +8,7 @@ WAS는 애플리케이션 코드를 실행하는데 더 특화
 
 # 서블릿
 
-![](../../../../var/folders/5q/y03lgw592353dvzjthlx785r0000gn/T/TemporaryItems/NSIRD_screencaptureui_CdSxeq/Screenshot 2024-08-25 at 16.51.26.png)
+<img width="961" alt="Screenshot 2024-08-25 at 16 52 34" src="https://github.com/user-attachments/assets/ccec52b9-5c88-49ba-9a5f-b431d4f96c36">
 
 톰캣처럼 서블릿을 지원하는 was를 서블릿 컨테이너라고 함
 
