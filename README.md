@@ -83,6 +83,8 @@ WAS의 주요 튜닝 포인트는 최대 쓰레드(max thread) 수이다.
 
 ## CSR
 
+<img width="890" alt="Screenshot 2024-08-25 at 17 24 09" src="https://github.com/user-attachments/assets/0d799a42-9971-4a53-a211-e57ec1727759">
+
 클라이언트 사이드 랜더링
 
 HTML 결과를 자바스크립트를 사용해 웹 브라우저에서 동적으로 생성해서 적용
