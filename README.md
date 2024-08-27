@@ -170,4 +170,18 @@ JSP : 속드 느림, 기능 부족
     * 메시지에 쿼리 파라미터 형식으로 전달. GET 쿼리파라미터와 형태가 같다.
 
 3) HTTP message body에 데이터를 직접 담아서 요청
-    * Json, XML 
+    * Json, XML
+
+## 응답 데이터
+
+* HTTP 응답코드 지정
+  헤더 생성
+
+  바디 생성
+
+  기타 제공 : content-type, 쿠키, redirect
+
+* 응답 3가지
+    * text
+    * html
+    * body (json, xml)
