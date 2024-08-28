@@ -253,9 +253,17 @@ UI수정과 비즈니스 수정은 서로 다르게 발생한다. 근데 하나�
 
 ### v1
 <img width="695" alt="Screenshot 2024-08-28 at 21 20 21" src="https://github.com/user-attachments/assets/e1e7a255-4365-4c85-b00e-6b0afc24bd39">
-<img width="690" alt="Screenshot 2024-08-28 at 21 21 17" src="https://github.com/user-attachments/assets/5191d162-e236-4afc-96c4-a55105cb069e">
-<img width="697" alt="Screenshot 2024-08-28 at 21 21 01" src="https://github.com/user-attachments/assets/1285215c-f433-4c5d-94b4-deb68ae7cd8b">
-<img width="685" alt="Screenshot 2024-08-28 at 21 20 48" src="https://github.com/user-attachments/assets/f8357b9d-c2ab-409e-9ff2-e78cd6a8c4af">
+
+### v2
 <img width="701" alt="Screenshot 2024-08-28 at 21 20 34" src="https://github.com/user-attachments/assets/364d71e9-a420-44ae-9931-b2dac47e5cfc">
+
+### v3
+<img width="685" alt="Screenshot 2024-08-28 at 21 20 48" src="https://github.com/user-attachments/assets/f8357b9d-c2ab-409e-9ff2-e78cd6a8c4af">
+
+### v4
+<img width="697" alt="Screenshot 2024-08-28 at 21 21 01" src="https://github.com/user-attachments/assets/1285215c-f433-4c5d-94b4-deb68ae7cd8b">
+
+### v5
+<img width="690" alt="Screenshot 2024-08-28 at 21 21 17" src="https://github.com/user-attachments/assets/5191d162-e236-4afc-96c4-a55105cb069e">
 
 
