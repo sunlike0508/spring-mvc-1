@@ -16,13 +16,13 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "frontControllerServletV4", urlPatterns = "/front-controller/v4/*")
 public class FrontControllerServletV4 extends HttpServlet {
 
-    private final Map<String, ControllerV4> controllerV3Map = new HashMap<>();
+    private final Map<String, ControllerV4> controllerV4Map = new HashMap<>();
 
 
     public FrontControllerServletV4() {
-        controllerV3Map.put("/front-controller/v4/members/new-form", new MemberFormControllerV4());
-        controllerV3Map.put("/front-controller/v4/members/save", new MemberSaveControllerV4());
-        controllerV3Map.put("/front-controller/v4/members", new MemberListControllerV4());
+        controllerV4Map.put("/front-controller/v4/members/new-form", new MemberFormControllerV4());
+        controllerV4Map.put("/front-controller/v4/members/save", new MemberSaveControllerV4());
+        controllerV4Map.put("/front-controller/v4/members", new MemberListControllerV4());
     }
 
 
@@ -33,7 +33,7 @@ public class FrontControllerServletV4 extends HttpServlet {
 
         String requestURI = request.getRequestURI();
 
-        ControllerV4 controllerV4 = controllerV3Map.get(requestURI);
+        ControllerV4 controllerV4 = controllerV4Map.get(requestURI);
 
         if(controllerV4 == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
