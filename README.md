@@ -252,18 +252,99 @@ UI수정과 비즈니스 수정은 서로 다르게 발생한다. 근데 하나�
 우리가 아는 스프링 웹 MVC의 DispatcherServlet이 프런트 컨트롤러 패턴으로 구현되어 있다.
 
 ### v1
+
 <img width="695" alt="Screenshot 2024-08-28 at 21 20 21" src="https://github.com/user-attachments/assets/e1e7a255-4365-4c85-b00e-6b0afc24bd39">
 
 ### v2
+
 <img width="701" alt="Screenshot 2024-08-28 at 21 20 34" src="https://github.com/user-attachments/assets/364d71e9-a420-44ae-9931-b2dac47e5cfc">
 
 ### v3
+
 <img width="685" alt="Screenshot 2024-08-28 at 21 20 48" src="https://github.com/user-attachments/assets/f8357b9d-c2ab-409e-9ff2-e78cd6a8c4af">
 
 ### v4
+
 <img width="697" alt="Screenshot 2024-08-28 at 21 21 01" src="https://github.com/user-attachments/assets/1285215c-f433-4c5d-94b4-deb68ae7cd8b">
 
 ### v5
+
 <img width="690" alt="Screenshot 2024-08-28 at 21 21 17" src="https://github.com/user-attachments/assets/5191d162-e236-4afc-96c4-a55105cb069e">
+
+# 스프링 MVC 구조 이해
+
+## 핸들러 매핑과 핸들러 어댑터
+
+* HandlerMapping
+    * 핸들러 매핑에서 내가 호출한 컨트롤러를 찾을 수 있어야 한다.
+    * ex) 스프링 빈의 이름으로 핸들러를 찾을 수 있는 핸들러 매핑이 필요하다.
+* HandlerAdapter
+    * 핸들러 매핑을 통해서 찾을 핸들러를 실행할 수 있는 어댑터가 필요하다.
+    * Controller 인터페이스를 실행할 수 있는 핸들러 어댑터를 찾고 실행해야 한다.
+
+스프링 부트가 자동 등록하는 핸들러 매핑과 핸들러 어댑터 (실제로는 많지만 아래는 주요 예제)
+
+* HandlerMapping
+    * RequestMappingHandlerMapping : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용
+    * BeanNameUrlHandlerMApping : 스프링 빈의 이름으로 핸드러를 찾는다.
+* HandlerAdapter
+    * RequestMappingHandlerAdapter : 애노테이션 기반의 컨트롤러인 @RequestMapping에서 사용
+    * HttpRequestHandlerAdapter : HttpRequestHandler 처리
+    * SimpleControllerHandlerAdapter : 과거 Controller 인터페이스
+
+**동작 순서**
+
+1. 핸들러 매핑으로 핸들러 조회
+    1. `HandlerMapping` 을 순서대로 실행해서, 핸들러를 찾는다.
+    2. 이경우빈이름으로핸들러를찾아야하기때문에이름그대로빈이름으로핸들러를찾아주는
+       `BeanNameUrlHandlerMapping` 가 실행에 성공하고 핸들러인 `OldController` 를 반환한다.
+2. 핸들러 어댑터 조회
+    1. `HandlerAdapter` 의 `supports()` 를 순서대로 호출한다.
+    2. `SimpleControllerHandlerAdapter` 가 `Controller` 인터페이스를 지원하므로 대상이 된다.
+3. 핸들러 어댑터 실행
+    1. 디스패처 서블릿이 조회한 `SimpleControllerHandlerAdapter` 를 실행하면서 핸들러 정보도 함께 넘겨준다.
+    2. `SimpleControllerHandlerAdapter` 는 핸들러인 `OldController` 를 내부에서 실행하고, 그 결과를 반환한다.
+
+***당연히 요즘은 다 애노테이션 기반으로 개발 : @RequestMapping***
+
+## ViewResolver
+
+* 스프링 부트가 자동 등록하는 뷰 리졸버
+    * BeanNameViewResolver : 빈 이름으로 뷰를 찾아서 반환한다. (예: 엑셀 파일 생성 기능에 사용)
+    * InternalResourceViewResolver : JSP를 처리할 수 있는 뷰를 반환한다.
+
+1. 핸들러 어댑터 호출
+
+핸들러 어댑터를 통해 `new-form` 이라는 논리 뷰 이름을 획득한다.
+
+2. ViewResolver 호출
+
+`new-form` 이라는 뷰 이름으로 viewResolver를 순서대로 호출한다.
+`BeanNameViewResolver` 는 `new-form` 이라는 이름의 스프링 빈으로 등록된 뷰를 찾아야 하는데 없다. `InternalResourceViewResolver` 가 호출된다.
+
+3. InternalResourceViewResolver
+
+이 뷰 리졸버는 `InternalResourceView` 를 반환한다.
+
+4. 뷰 - InternalResourceView
+
+`InternalResourceView` 는 JSP처럼 포워드 `forward()` 를 호출해서 처리할 수 있는 경우에 사용한다.
+
+5. view.render()
+
+`view.render()` 가 호출되고 `InternalResourceView` 는 `forward()` 를 사용해서 JSP를 실행한다.
+
+***타임리프면 타임리프 뷰리졸버가 또 있다. gradle에 추가하면 알아서 스프링부트가 등록한다.***
+
+### RequestMapping
+
+`RequestMappingHandlerMapping` : 클래스 level에서 @Component, @RequestMapping이 붙은 클래스들을 찾아 bean으로 등록
+
+`RequestMappingHandlerAdapter`
+
+앞서 보았듯이 가장 우선순위가 높은 핸들러 매핑과 핸들러 어댑터는 `RequestMappingHandlerMapping` , `RequestMappingHandlerAdapter` 이다.
+`@RequestMapping` 의 앞글자를 따서 만든 이름인데, 이것이 바로 지금 스프링에서 주로 사용하는 애노테이션 기반의 컨트롤러를 지원하는 핸들러 매핑과 어댑터이다.
+
+**실무에서는 99.9% 이 방식의 컨트롤러를 사용한다.**
 
 
